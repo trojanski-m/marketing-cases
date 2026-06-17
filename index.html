@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Максим — Email-маркетинг</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4df;
+      --text: #1a1a1a;
+      --muted: #777068;
+      --accent: #2d5a8e;
+      --accent-light: #eef3f9;
+      --tag-bg: #f0ede8;
+      --tag-color: #5a5248;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 72px 24px 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .header h1 span {
+      color: var(--accent);
+    }
+
+    .header-intro {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* Stats row */
+    .stats {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 36px 24px;
+      display: flex;
+      gap: 48px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* Main cases */
+    .cases {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .case-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+
+    .case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .case-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .case-badge {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: 0.03em;
+    }
+
+    .case-context {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .case-body {
+      margin-bottom: 24px;
+    }
+
+    .case-body-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .case-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .case-list li {
+      font-size: 14px;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .case-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 5px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .case-result {
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .case-result strong {
+      font-weight: 600;
+      color: var(--accent);
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .case-tag {
+      font-size: 11px;
+      color: var(--tag-color);
+      background: var(--tag-bg);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* Also section */
+    .also {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .also-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .also-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .also-item-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .also-item-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Skills */
+    .skills {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+      border-top: 1px solid var(--border);
+      padding-top: 48px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .skill-group-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .skill-group-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .skill-group-list li {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    /* Footer */
+    .footer {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 48px 20px 40px;
+      }
+
+      .case-card {
+        padding: 28px 20px;
+      }
+
+      .stats {
+        gap: 28px;
+      }
+
+      .case-header {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+
+  <main class="cases">
+    <p class="section-label">Основные кейсы</p>
+
+    <!-- Case 1 -->
+    <div class="case-card">
+      <div class="case-header">
+        <h2 class="case-title">Welcome-цепочка с интеграцией в AmoCRM</h2>
+        <span class="case-badge">Автоматизация</span>
+      </div>
+      <p class="case-context">B2B платформа медицинского туризма — нужно было автоматически прогревать новых партнеров и отслеживать их активность в CRM.</p>
+      <div class="case-body">
+        <p class="case-body-label">Что сделал</p>
+        <ul class="case-list">
+          <li>Спроектировал и настроил автоматическую welcome-цепочку из 33+ узлов</li>
+          <li>Интегрировал цепочку с AmoCRM — логика следующего письма зависела от действий партнера в системе</li>
+          <li>Настроил персонализацию через переменные с fallback-значениями — письма приходили с именем получателя даже если поле не заполнено</li>
+          <li>Выстроил систему интервалов касаний — 1, 7 и 14 дней в зависимости от поведения</li>
+        </ul>
+      </div>
+      <div class="case-result">
+        <strong>Результат</strong>
+        Цепочка работала без ручного участия — новые партнеры автоматически получали релевантные письма в зависимости от своих действий в системе.
+      </div>
+      <div class="case-tags">
+        <span class="case-tag">Unisender</span>
+        <span class="case-tag">AmoCRM</span>
+        <span class="case-tag">Персонализация</span>
+        <span class="case-tag">Автоматизация</span>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="case-card">
+      <div class="case-header">
+        <h2 class="case-title">Сегментированная коммуникация для трех типов партнеров</h2>
+        <span class="case-badge">Стратегия</span>
+      </div>
+      <p class="case-context">Партнерская сеть платформы включала разные типы участников с разными задачами и интересами — единая коммуникация не работала.</p>
+      <div class="case-body">
+        <p class="case-body-label">Что сделал</p>
+        <ul class="case-list">
+          <li>Выстроил раздельную коммуникацию для трех сегментов — русскоязычные клиники, зарубежные клиники, русскоязычные агентства</li>
+          <li>Разработал отдельный контент под каждый сегмент с учетом роли и задач партнера</li>
+          <li>Англоязычную коммуникацию с зарубежными клиниками вел самостоятельно — без переводчика</li>
+          <li>Внедрил персонализацию обращений с учетом пола и падежа для русскоязычной аудитории</li>
+        </ul>
+      </div>
+      <div class="case-result">
+        <strong>Результат</strong>
+        Система покрывала три рынка без привлечения дополнительных специалистов — контент, переводы и коммуникация велись одним человеком.
+      </div>
+      <div class="case-tags">
+        <span class="case-tag">Сегментация</span>
+        <span class="case-tag">B2B</span>
+        <span class="case-tag">English C1</span>
+        <span class="case-tag">Персонализация</span>
+        <span class="case-tag">Контент</span>
+      </div>
+    </div>
+
+    <!-- Case 3 -->
+    <div class="case-card">
+      <div class="case-header">
+        <h2 class="case-title">RFM-анализ партнерской базы</h2>
+        <span class="case-badge">Аналитика</span>
+      </div>
+      <p class="case-context">Стандартная методология RFM рассчитана на ecommerce — нужно было адаптировать ее под B2B где нет прямых транзакций.</p>
+      <div class="case-body">
+        <p class="case-body-label">Что сделал</p>
+        <ul class="case-list">
+          <li>Провел RFM-анализ партнерской базы — адаптировал методологию под B2B специфику</li>
+          <li>Вместо денежных транзакций использовал поведенческие метрики — подписка, регистрация в системе, переходы по ссылкам</li>
+          <li>Сегментировал базу по уровню вовлеченности для персонализации дальнейшей коммуникации</li>
+        </ul>
+      </div>
+      <div class="case-result">
+        <strong>Результат</strong>
+        Получил сегментацию базы по реальной активности партнеров — основа для разной коммуникации с активными и неактивными контактами.
+      </div>
+      <div class="case-tags">
+        <span class="case-tag">RFM-анализ</span>
+        <span class="case-tag">Сегментация</span>
+        <span class="case-tag">B2B аналитика</span>
+        <span class="case-tag">Поведенческие метрики</span>
+      </div>
+    </div>
+
+
+
+  </main>
+
+  <!-- Also section -->
+  <section class="also">
+    <p class="section-label">Также в опыте</p>
+    <div class="also-grid">
+      <div class="also-item">
+        <p class="also-item-title">Транзакционные письма</p>
+        <p class="also-item-desc">Спроектировал систему писем сайта — регистрация, пароль, уведомления. Дизайн и тексты на RU и EN самостоятельно.</p>
+      </div>
+      <div class="also-item">
+        <p class="also-item-title">GDPR-адаптация</p>
+        <p class="also-item-desc">В 2018 привел рассылки в соответствие с GDPR в сжатые сроки. Приоритет — английская база.</p>
+      </div>
+      <div class="also-item">
+        <p class="also-item-title">Лид-магнит и лид-форма</p>
+        <p class="also-item-desc">Разработал white paper на основе вебинаров. Спроектировал лид-форму с A/B тестом поведения.</p>
+      </div>
+      <div class="also-item">
+        <p class="also-item-title">A/B тестирование</p>
+        <p class="also-item-desc">Тестировал прехедеры и цвет CTA-кнопок. Вывод: B2B аудитория реагирует на содержание, не на визуал.</p>
+      </div>
+      <div class="also-item">
+        <p class="also-item-title">Событийные рассылки</p>
+        <p class="also-item-desc">Email-сопровождение вебинаров и выставок — анонс, напоминание, follow-up. Таймер обратного отсчета.</p>
+      </div>
+      <div class="also-item">
+        <p class="also-item-title">Персонализация с падежами</p>
+        <p class="also-item-desc">Сегментация базы по полу, разные варианты обращений с корректными падежными формами.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills">
+    <p class="section-label">Инструменты и навыки</p>
+    <div class="skills-grid">
+      <div>
+        <p class="skill-group-title">ESP-платформы</p>
+        <ul class="skill-group-list">
+          <li>Unisender</li>
+          <li>Sendsay</li>
+        </ul>
+      </div>
+      <div>
+        <p class="skill-group-title">Аналитика</p>
+        <ul class="skill-group-list">
+          <li>Яндекс.Метрика</li>
+          <li>Google Analytics</li>
+          <li>RFM-анализ</li>
+        </ul>
+      </div>
+      <div>
+        <p class="skill-group-title">Верстка</p>
+        <ul class="skill-group-list">
+          <li>HTML Email</li>
+          <li>MJML</li>
+          <li>Темная тема</li>
+          <li>Outlook-совместимость</li>
+        </ul>
+      </div>
+      <div>
+        <p class="skill-group-title">Дополнительно</p>
+        <ul class="skill-group-list">
+          <li>Figma</li>
+          <li>SEO, контент</li>
+          <li>Английский C1</li>
+          <li>GDPR</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Email-маркетолог и Email-верстальщик</p>
+  </footer>
+
+</body>
+</html>
